@@ -1,0 +1,14 @@
+# FluxCD 创建部署策略
+#interval 参数表示 FluxCD 会每 5 秒钟运行一次工作负载差异对比，path 参数表示我们的 deployment.yaml 位于仓库的根目录中。FluxCD 在对比期望状态和集群实际状态的时候，如果发现差异就会触发重新部署
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: hello-world-flask
+spec:
+  interval: 5s
+  path: ./
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: hello-world-flask
+  targetNamespace: default
